@@ -1,0 +1,118 @@
+/*
+1. Используя команду cat в терминале операционной системы Linux, создать
+   два файла Домашние животные (заполнив файл собаками, кошками,
+   хомяками) и Вьючные животными заполнив файл Лошадьми, верблюдами и
+   ослы), а затем объединить их. Просмотреть содержимое созданного файла.
+   Переименовать файл, дав ему новое имя (Друзья человека).
+ */
+
+taxah@uTaXaH:~$ cat > pets
+dog, name = Ressi, age = 1;
+dog, name = Rex, age = 7;
+cat, name = Vasil, age = 5;
+cat, name = Luna, age = 3;
+hamster, name = Frog, age = 1;
+hamster, name = Varyag, age = 1;
+^C
+
+taxah@uTaXaH:~$ cat > packAnimals
+horse, name = Ginger, age = 5;
+horse, name = Thunder, age = 7;
+camel, name = Sahara, age = 10;
+camel, name = Caspian, age = 8;
+donkey, name = Eeyore, age = 6;
+donkey, name = Daisy, age = 4;
+^C
+taxah@uTaXaH:~$ cat pets packAnimals > merged.txt
+taxah@uTaXaH:~$ cat merged.txt
+dog, name = Ressi, age = 1;
+dog, name = Rex, age = 7;
+cat, name = Vasil, age = 5;
+cat, name = Luna, age = 3;
+hamster, name = Frog, age = 1;
+hamster, name = Varyag, age = 1;
+horse, name = Ginger, age = 5;
+horse, name = Thunder, age = 7;
+camel, name = Sahara, age = 10;
+camel, name = Caspian, age = 8;
+donkey, name = Eeyore, age = 6;
+donkey, name = Daisy, age = 4;
+taxah@uTaXaH:~$ mv merged.txt humanFriends.txt
+
+# 2. Создать директорию, переместить файл туда.
+
+taxah@uTaXaH:~$ mkdir controlWork2
+taxah@uTaXaH:~$ mv humanFriends.txt ./controlWork2/
+taxah@uTaXaH:~$ cd controlWork2/
+taxah@uTaXaH:~/controlWork2$ ll
+total 12
+drwxrwxr-x  2 taxah taxah 4096 июл 24 17:35 ./
+drwxr-x--- 21 taxah taxah 4096 июл 24 17:35 ../
+-rw-rw-r--  1 taxah taxah  363 июл 24 17:30 humanFriends.txt
+
+/*
+3. Подключить дополнительный репозиторий MySQL. Установить любой пакет
+   из этого репозитория.
+4. Установить и удалить deb-пакет с помощью dpkg.
+*/
+
+taxah@uTaXaH:~/ControlWork2$ wget https://dev.mysql.com/get/mysql-apt-config_0.8.26-1_all.deb
+taxah@uTaXaH:~/ControlWork2$ 
+taxah@uTaXaH:~/ControlWork2$ sudo dpkg -i /home/taxah/ControlWork2/mysql-apt-config_0.8.26-1_all.deb
+    # Так же любой пакет устанавливается
+(Reading database ... 215837 files and directories currently installed.)
+Preparing to unpack .../mysql-apt-config_0.8.26-1_all.deb ...
+Unpacking mysql-apt-config (0.8.26-1) over (0.8.26-1) ...
+Setting up mysql-apt-config (0.8.26-1) ...
+taxah@uTaXaH:~/ControlWork2$ sudo apt-get update
+Hit:1 https://download.docker.com/linux/ubuntu jammy InRelease
+Hit:2 http://security.ubuntu.com/ubuntu jammy-security InRelease
+Hit:3 http://kz.archive.ubuntu.com/ubuntu jammy InRelease
+Hit:4 http://kz.archive.ubuntu.com/ubuntu jammy-updates InRelease
+Get:5 http://kz.archive.ubuntu.com/ubuntu jammy-backports InRelease [108 kB]
+Get:6 http://repo.mysql.com/apt/ubuntu jammy InRelease [20,3 kB]
+Get:7 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 Sources [963 B]
+Get:8 http://repo.mysql.com/apt/ubuntu jammy/mysql-apt-config amd64 Packages [565 B]
+Get:9 http://repo.mysql.com/apt/ubuntu jammy/mysql-apt-config i386 Packages [565 B]
+Get:10 http://repo.mysql.com/apt/ubuntu jammy/mysql-8.0 amd64 Packages [12,7 kB]
+Get:11 http://repo.mysql.com/apt/ubuntu jammy/mysql-tools amd64 Packages [8 011 B]
+Get:12 http://repo.mysql.com/apt/ubuntu jammy/mysql-tools i386 Packages [457 B]
+Fetched 151 kB in 2s (99,7 kB/s)
+Reading package lists... Done
+taxah@uTaXaH:~/ControlWork2$ sudo apt-get install mysql-community-server
+Reading package lists... Done
+Building dependency tree... Done
+Reading state information... Done
+The following additional packages will be installed:
+  libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client mysql-common mysql-community-client
+  mysql-community-client-core mysql-community-client-plugins mysql-community-server-core
+The following NEW packages will be installed:
+  libmecab2 mecab-ipadic mecab-ipadic-utf8 mecab-utils mysql-client mysql-common mysql-community-client
+  mysql-community-client-core mysql-community-client-plugins mysql-community-server mysql-community-server-core
+0 upgraded, 11 newly installed, 0 to remove and 2 not upgraded.
+Need to get 37,6 MB of archives.
+After this operation, 273 MB of additional disk space will be used.
+Do you want to continue? [Y/n] y
+...
+taxah@uTaXaH:~/ControlWork2$ dpkg -l
+...
+
+taxah@uTaXaH:~/ControlWork2$ sudo dpkg -P mysql-community-client
+dpkg: dependency problems prevent removal of mysql-community-client:
+ mysql-client depends on mysql-community-client (= 8.0.34-1ubuntu22.04).
+
+dpkg: error processing package mysql-community-client (--purge):
+ dependency problems - not removing
+Errors were encountered while processing:
+ mysql-community-client
+taxah@uTaXaH:~/ControlWork2$ sudo dpkg -P mysql-client
+(Reading database ... 216167 files and directories currently installed.)
+Removing mysql-client (8.0.34-1ubuntu22.04) ...
+taxah@uTaXaH:~/ControlWork2$ sudo dpkg -P mysql-community-client
+(Reading database ... 216161 files and directories currently installed.)
+Removing mysql-community-client (8.0.34-1ubuntu22.04) ...
+Purging configuration files for mysql-community-client (8.0.34-1ubuntu22.04) ...
+Processing triggers for man-db (2.10.2-1) ...
+taxah@uTaXaH:~/ControlWork2$
+
+# 5. Выложить историю команд в терминале ubuntu
