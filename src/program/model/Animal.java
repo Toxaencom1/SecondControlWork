@@ -2,14 +2,14 @@ package program.model;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public abstract class Animal {
     protected static int currentId = 0;
     protected int id;
     protected String name;
     protected LocalDate dateOfBirth;
-    protected ArrayList<Commands> commandsList;
+    protected HashSet<Commands> commandsSet;
 
     protected abstract void addCommand(Commands commands);
 
@@ -37,12 +37,12 @@ public abstract class Animal {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public ArrayList<Commands> getCommandsList() {
-        return commandsList;
+    public HashSet<Commands> getCommandsSet() {
+        return commandsSet;
     }
 
-    public void setCommandsList(ArrayList<Commands> commandsList) {
-        this.commandsList = commandsList;
+    public void setCommandsSet(HashSet<Commands> commandsSet) {
+        this.commandsSet = commandsSet;
     }
 
 
@@ -52,6 +52,6 @@ public abstract class Animal {
                 " id = " + id +
                 " Name = '" + name + '\'' +
                 " Birthday = " + dateOfBirth +
-                " Commands List = " + commandsList;
+                " Commands List = " + commandsSet;
     }
 }

@@ -16,7 +16,7 @@ public class Camel extends PackAnimals {
 
     @Override
     protected void addCommand(Commands command) {
-        commandsList.add(command);
+        commandsSet.add(command);
     }
 
 

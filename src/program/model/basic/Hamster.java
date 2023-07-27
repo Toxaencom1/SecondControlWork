@@ -15,7 +15,7 @@ public class Hamster extends Pet {
 
     @Override
     public void addCommand(Commands command) {
-        commandsList.add(command);
+        commandsSet.add(command);
     }
 
 

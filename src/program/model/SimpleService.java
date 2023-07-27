@@ -40,7 +40,7 @@ public class SimpleService implements Service {
         try {
             date = LocalDate.parse(dayOfBirth, dateFormatter);
             counter.add();
-            System.out.println("System message: Counter = "+counter.getValue());
+            System.out.println("System message: Counter = " + counter.getValue());
             switch (choice) {
                 case 1 -> {
                     Dog dog = new Dog(name, date);
@@ -98,12 +98,9 @@ public class SimpleService implements Service {
         for (Animal animal :
                 animalList) {
             if (animal.getId() == choice) {
-                for (int i = 0; i < animal.getCommandsList().size(); i++) {
-                    if (i < animal.getCommandsList().size() - 1) {
-                        sb.append(animal.getCommandsList().get(i)).append(", ");
-                    } else {
-                        sb.append(animal.getCommandsList().get(i));
-                    }
+                for (Commands commands :
+                        animal.getCommandsSet()) {
+                    sb.append(commands).append(" ");
                 }
                 return "Commands list: " + sb;
             }
@@ -124,7 +121,7 @@ public class SimpleService implements Service {
             if (animal.getId() == choice) {
                 for (String str :
                         temp) {
-                    animal.getCommandsList().add(Commands.valueOf(str.toUpperCase()));
+                    animal.getCommandsSet().add(Commands.valueOf(str.toUpperCase()));
                 }
                 return "Command added";
             }
