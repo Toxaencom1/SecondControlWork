@@ -2,8 +2,8 @@ package program.model;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 
 public abstract class PackAnimals extends Animal{
 
@@ -11,6 +11,6 @@ public abstract class PackAnimals extends Animal{
         this.id = ++currentId;
         this.name = name;
         this.dateOfBirth = dateOfBirth;
-        this.commandsList = new ArrayList<>(Arrays.asList(Commands.FORWARD,Commands.STOP));
+        this.commandsSet = new HashSet<>(Arrays.asList(Commands.FORWARD,Commands.STOP));
     }
 }
