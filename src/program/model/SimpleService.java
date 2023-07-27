@@ -13,6 +13,7 @@ import java.util.Arrays;
 
 public class SimpleService implements Service {
     private Validator validator = new Validator();
+    private Counter counter;
 
     private ArrayList<Animal> animalList = new ArrayList<>(Arrays.asList(
             new Dog("Rex", LocalDate.of(2015, 1, 15)),
@@ -21,6 +22,10 @@ public class SimpleService implements Service {
             new Horse("Ginger", LocalDate.of(2000, 8, 22)),
             new Camel("Sahara", LocalDate.of(1987, 11, 10)),
             new Donkey("Ia", LocalDate.of(2010, 12, 27))));
+
+    public SimpleService(Counter counter) {
+        this.counter = counter;
+    }
 
     public boolean addAnimal(int choice, String name, String dayOfBirth, String commands) {
         try {
@@ -34,6 +39,8 @@ public class SimpleService implements Service {
         ArrayList<String> command = new ArrayList<>(Arrays.asList(commands.trim().split(";")));
         try {
             date = LocalDate.parse(dayOfBirth, dateFormatter);
+            counter.add();
+            System.out.println("System message: Counter = "+counter.getValue());
             switch (choice) {
                 case 1 -> {
                     Dog dog = new Dog(name, date);
