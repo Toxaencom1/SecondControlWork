@@ -121,7 +121,7 @@ public class SimpleService implements Service {
             if (animal.getId() == choice) {
                 for (String str :
                         temp) {
-                    animal.getCommandsSet().add(Commands.valueOf(str.toUpperCase()));
+                    animal.getCommandsSet().add(Commands.valueOf(str.trim().toUpperCase()));
                 }
                 return "Command added";
             }
