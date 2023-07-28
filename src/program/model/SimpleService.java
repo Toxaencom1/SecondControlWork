@@ -36,7 +36,6 @@ public class SimpleService implements Service {
         }
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate date;
-        ArrayList<String> command = new ArrayList<>(Arrays.asList(commands.trim().split(";")));
         try {
             date = LocalDate.parse(dayOfBirth, dateFormatter);
             counter.add();
@@ -45,37 +44,37 @@ public class SimpleService implements Service {
                 case 1 -> {
                     Dog dog = new Dog(name, date);
                     animalList.add(dog);
-                    addToCommandsList(dog, command);
+                    addToCommandsList(dog, commands);
                     return true;
                 }
                 case 2 -> {
                     Cat Cat = new Cat(name, date);
                     animalList.add(Cat);
-                    addToCommandsList(Cat, command);
+                    addToCommandsList(Cat, commands);
                     return true;
                 }
                 case 3 -> {
                     Hamster Hamster = new Hamster(name, date);
                     animalList.add(Hamster);
-                    addToCommandsList(Hamster, command);
+                    addToCommandsList(Hamster, commands);
                     return true;
                 }
                 case 4 -> {
                     Horse horse = new Horse(name, date);
                     animalList.add(horse);
-                    addToCommandsList(horse, command);
+                    addToCommandsList(horse, commands);
                     return true;
                 }
                 case 5 -> {
                     Camel camel = new Camel(name, date);
                     animalList.add(camel);
-                    addToCommandsList(camel, command);
+                    addToCommandsList(camel, commands);
                     return true;
                 }
                 case 6 -> {
                     Donkey donkey = new Donkey(name, date);
                     animalList.add(donkey);
-                    addToCommandsList(donkey, command);
+                    addToCommandsList(donkey, commands);
                     return true;
                 }
             }
@@ -152,10 +151,16 @@ public class SimpleService implements Service {
         return sb.toString();
     }
 
-    private void addToCommandsList(Animal animal, ArrayList<String> commandList) {
-        for (String el : commandList) {
-            Commands command = Commands.valueOf(el);
-            animal.addCommand(command);
+    private void addToCommandsList(Animal animal, String command) {
+        try {
+            validator.validateCommandsString(command);
+        } catch (ThereIsNoSuchCommand e) {
+            System.err.println("Error while entering commands for animal! Aborted");
+        }
+        ArrayList<String> temp = new ArrayList<>(Arrays.asList(command.trim().split(";")));
+        for (String str :
+                temp) {
+            animal.getCommandsSet().add(Commands.valueOf(str.trim().toUpperCase()));
         }
     }
 }
