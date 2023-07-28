@@ -68,7 +68,7 @@ public class Validator {
     public String validateCommandsString(String commandsList) throws ThereIsNoSuchCommand {
         ArrayList<String> temp = new ArrayList<>(Arrays.asList(commandsList.trim().split(";")));
         for (String command : temp) {
-            if (!checkIfCommandExists(command)) {
+            if (!checkIfCommandExists(command.trim())) {
                 throw new ThereIsNoSuchCommand("There is no such command");
             }
         }
