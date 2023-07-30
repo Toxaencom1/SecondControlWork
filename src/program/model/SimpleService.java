@@ -109,23 +109,33 @@ public class SimpleService implements Service {
 
     @Override
     public String addCommandToAnimal(int choice, String command) {
-        try {
-            validator.validateCommandsString(command);
-        } catch (ThereIsNoSuchCommand e) {
-            return "Error while entering commands for animal! Aborted";
-        }
-        ArrayList<String> temp = new ArrayList<>(Arrays.asList(command.trim().split(";")));
         for (Animal animal :
                 animalList) {
             if (animal.getId() == choice) {
-                for (String str :
-                        temp) {
-                    animal.getCommandsSet().add(Commands.valueOf(str.trim().toUpperCase()));
-                }
+                addToCommandsList(animal,command);
                 return "Command added";
             }
         }
         return "Can`t find animal with this id";
+    }
+
+    private void addToCommandsList(Animal animal, String command) {
+        try {
+            validator.validateCommandsString(command);
+        } catch (ThereIsNoSuchCommand e) {
+            System.err.println("Error while entering commands for animal! Aborted");
+        }
+        ArrayList<String> temp = new ArrayList<>(Arrays.asList(command.trim().split(";")));
+        for (String str :
+                temp) {
+            str = str.trim().toUpperCase();
+            if (str.startsWith("DEL:")){
+                str = str.replace("DEL:","").trim();
+                animal.getCommandsSet().remove(Commands.valueOf(str));
+            } else {
+                animal.getCommandsSet().add(Commands.valueOf(str));
+            }
+        }
     }
 
     @Override
@@ -151,16 +161,5 @@ public class SimpleService implements Service {
         return sb.toString();
     }
 
-    private void addToCommandsList(Animal animal, String command) {
-        try {
-            validator.validateCommandsString(command);
-        } catch (ThereIsNoSuchCommand e) {
-            System.err.println("Error while entering commands for animal! Aborted");
-        }
-        ArrayList<String> temp = new ArrayList<>(Arrays.asList(command.trim().split(";")));
-        for (String str :
-                temp) {
-            animal.getCommandsSet().add(Commands.valueOf(str.trim().toUpperCase()));
-        }
-    }
+
 }

@@ -47,7 +47,7 @@ public class Presenter {
         view.print(service.animalListToString());
         int choice = view.scan();
         view.print("List of commands: GO STOP SIT STAND LAY VOICE WALK FORWARD");
-        view.print("Enter command (Delimiter is \";\")");
+        view.print("Enter command (For many - Delimiter is \";\"), to REMOVE command add \"del:\" before command");
         String command = view.params();
         view.print(service.addCommandToAnimal(choice,command));
     }
