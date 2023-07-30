@@ -65,14 +65,17 @@ public class Validator {
         }
     }
 
-    public String validateCommandsString(String commandsList) throws ThereIsNoSuchCommand {
+    public void validateCommandsString(String commandsList) throws ThereIsNoSuchCommand {
         ArrayList<String> temp = new ArrayList<>(Arrays.asList(commandsList.trim().split(";")));
         for (String command : temp) {
-            if (!checkIfCommandExists(command.trim())) {
+            command = command.trim().toUpperCase();
+            if (command.startsWith("DEL:")){
+                command = command.replace("DEL:","").trim();
+            }
+            if (!checkIfCommandExists(command)) {
                 throw new ThereIsNoSuchCommand("There is no such command");
             }
         }
-        return commandsList;
     }
 
     private static boolean checkIfCommandExists(String command) {
