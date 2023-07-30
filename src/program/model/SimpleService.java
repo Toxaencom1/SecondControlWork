@@ -131,9 +131,9 @@ public class SimpleService implements Service {
             str = str.trim().toUpperCase();
             if (str.startsWith("DEL:")){
                 str = str.replace("DEL:","").trim();
-                animal.getCommandsSet().remove(Commands.valueOf(str));
+                animal.removeCommand(Commands.valueOf(str));
             } else {
-                animal.getCommandsSet().add(Commands.valueOf(str));
+                animal.addCommand(Commands.valueOf(str));
             }
         }
     }
@@ -160,6 +160,4 @@ public class SimpleService implements Service {
 
         return sb.toString();
     }
-
-
 }

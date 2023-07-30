@@ -11,7 +11,13 @@ public abstract class Animal {
     protected LocalDate dateOfBirth;
     protected HashSet<Commands> commandsSet;
 
-    protected abstract void addCommand(Commands commands);
+
+    protected void addCommand(Commands command) {
+        commandsSet.add(command);
+    }
+    protected void removeCommand(Commands command) {
+        commandsSet.remove(command);
+    }
 
     public int getId() {
         return id;
